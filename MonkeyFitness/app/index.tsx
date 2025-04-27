@@ -19,35 +19,23 @@ export default function HomeScreen() {
       <Text style={styles.title}>🐵 MonkeyFitness</Text>
       <Text style={styles.subtitle}>Track. Train. Transform.</Text>
 
-      <Link href={{ pathname: "/start-workout" }} asChild>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Start Workout</Text>
-        </TouchableOpacity>
+      <Link href={{ pathname: "./start-workout" }} asChild>
+      <TouchableOpacity style={{ ...styles.button, maxWidth: 350 }}>
+        <Text style={styles.buttonText}>Start Workout</Text>
+      </TouchableOpacity>
       </Link>
 
-      <Link href={{ pathname: "/view-progress" }} asChild>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>View Progress</Text>
-        </TouchableOpacity>
+      <Link href={{ pathname: "./view-progress" }} asChild>
+      <TouchableOpacity style={{ ...styles.button, maxWidth: 350 }}>
+        <Text style={styles.buttonText}>View Progress</Text>
+      </TouchableOpacity>
       </Link>
 
       <TouchableOpacity style={styles.toggleButton} onPress={toggleTheme}>
-        <Text style={styles.toggleText}>
-          Switch to {isDark ? "Light" : "Dark"} Mode
-        </Text>
+      <Text style={styles.toggleText}>
+        Switch to {isDark ? "Light" : "Dark"} Mode
+      </Text>
       </TouchableOpacity>
-
-      <Button title="Add Random Item" onPress={() => addItem('Item ' + Math.floor(Math.random() * 1000))} />
-        <FlatList
-          data={items}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <View style={{ marginVertical: 10 }}>
-              <Text>{item.name}</Text>
-            </View>
-          )}
-        />
-
 
     </View>
 

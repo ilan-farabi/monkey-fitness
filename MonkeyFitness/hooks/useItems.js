@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
-import { db } from '../utils/firebase';
+import { getFirebaseDB } from '../utils/firebase';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 export function useItems() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+    const fetchItems = async () => {
+      const db = getFirebaseDB();
+      if (!db) return;
+
+      const querySnapshot = await getDocs(collection(db, 'your-collection-name'));
+      const itemList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      setItems(itemList);
+    };
+
     fetchItems();
   }, []);
 
