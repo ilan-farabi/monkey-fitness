@@ -1,5 +1,5 @@
 // hooks/useLogin.js
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getFirebaseAuth } from '../utils/firebase';
 
 export async function login(email, password) {
@@ -29,7 +29,7 @@ export async function logout() {
   }
 }
 
-export async function register(email, password) {
+export async function register(email, password, displayName='') {
   const auth = getFirebaseAuth();
   if (!auth) {
     throw new Error('Firebase Auth is not available (maybe running on server)');
@@ -37,6 +37,10 @@ export async function register(email, password) {
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    if (displayName.length > 0) {
+      await updateProfile(userCredential.user, displayName);
+      console.log('Display name updated:', displayName);
+    }
     const user = userCredential.user;
     console.log('Registered user:', user);
     return user;
